@@ -36,23 +36,7 @@
     [super viewDidLoad];
     [self setUp];
     [self connectToHost:kHost withPort:kPort];
-    [_outputStream addObserver:self forKeyPath:@"streamStatus" options:NSKeyValueObservingOptionNew context:nil];
     [self createUI];
-}
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([object isKindOfClass:[NSOutputStream class]])
-    {
-        if([keyPath isEqualToString:@"streamStatus"])
-        {
-            NSStreamStatus status=[[change objectForKey:@"new"] integerValue];
-            if(status==NSStreamStatusError)
-            {
-                NSLog(@"连接断开");
-            }
-            
-        }
-    }
 }
 /**
  * 初始设置
